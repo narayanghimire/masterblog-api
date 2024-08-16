@@ -6,6 +6,39 @@
     <title>Blog Posts</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/styles.css">
+    <style>
+        /* Additional styles for sorting controls */
+        .sort-controls {
+            margin-bottom: 20px;
+        }
+
+        .sort-controls select {
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
+        }
+
+        .sort-controls button {
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4466ee;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .sort-controls button:hover {
+            background-color: #3355dd;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,8 +52,37 @@
             <input type="text" id="post-content" placeholder="Enter Post Content">
             <button onclick="addPost()">Add Post</button>
         </div>
+        <div class="input-field">
+            <input type="text" id="search-title" placeholder="Search by Title">
+            <input type="text" id="search-content" placeholder="Search by Content">
+            <button onclick="searchPosts()">Search</button>
+        </div>
+        <div class="sort-controls">
+            <select id="sort-by">
+                <option value="">Sort By</option>
+                <option value="title">Title</option>
+                <option value="content">Content</option>
+            </select>
+            <select id="sort-direction">
+                <option value="">Direction</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button onclick="sortPosts()">Sort Posts</button>
+        </div>
         <div id="post-container">
             <!-- Blog posts will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal for editing posts -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Edit Post</h2>
+            <input type="text" id="edit-title" placeholder="New Title">
+            <textarea id="edit-content" placeholder="New Content"></textarea>
+            <button onclick="saveChanges()">Save Changes</button>
         </div>
     </div>
 
