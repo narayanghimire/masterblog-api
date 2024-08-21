@@ -1,6 +1,10 @@
+import os
+import sys
+
 from flask import Flask
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from controllers.post_controller import post_controller
 
 
@@ -8,6 +12,7 @@ SWAGGER_URL = "/api/docs"
 API_URL = "/static/masterblog.json"
 
 def create_app():
+    """Initialize the Flask application and configure Swagger UI."""
     app = Flask(__name__)
     CORS(app)
     app.register_blueprint(post_controller)

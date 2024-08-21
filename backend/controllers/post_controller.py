@@ -7,6 +7,7 @@ post_service = PostService()
 
 @post_controller.route('/api/posts', methods=['GET'])
 def get_posts():
+    """Retrieve and return all posts, optionally sorted by title or content."""
     sort_by = request.args.get('sort', '').lower()
     direction = request.args.get('direction', '').lower()
     if sort_by not in ['', 'title', 'content']:
@@ -18,6 +19,7 @@ def get_posts():
 
 @post_controller.route('/api/posts', methods=['POST'])
 def add_post():
+    """Create a new post with the provided title and content."""
     new_post_data = request.get_json()
     if not new_post_data or 'title' not in new_post_data or 'content' not in new_post_data:
         return jsonify({"error": "Both 'title' and 'content' are required."}), 400
@@ -26,6 +28,7 @@ def add_post():
 
 @post_controller.route('/api/posts/<int:id>', methods=['DELETE'])
 def delete_post(id):
+    """Delete a post by its ID."""
     post = post_service.delete_post(id)
     if post:
         return jsonify({"message": f"Post with id {id} has been deleted successfully."}), 200
@@ -41,6 +44,7 @@ def update_post(id):
 
 @post_controller.route('/api/posts/search', methods=['GET'])
 def search_posts():
+    """Search for posts by title or content using query parameters."""
     title_query = request.args.get('title', '').lower()
     content_query = request.args.get('content', '').lower()
     filtered_posts = post_service.search_posts(title_query, content_query)

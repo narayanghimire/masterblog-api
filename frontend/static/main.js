@@ -6,8 +6,12 @@ window.onload = function() {
     }
 }
 
+function sanitizeBaseUrl(url) {
+    return url.endsWith('/') ? url.slice(0, -1) : url;
+}
+
 function loadPosts(sortBy = '', direction = '') {
-    var baseUrl = document.getElementById('api-base-url').value;
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
     var queryString = '';
 
     localStorage.setItem('apiBaseUrl', baseUrl);
@@ -48,7 +52,7 @@ function sortPosts() {
 }
 
 function addPost() {
-    var baseUrl = document.getElementById('api-base-url').value;
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
     var postTitle = document.getElementById('post-title').value;
     var postContent = document.getElementById('post-content').value;
 
@@ -66,8 +70,7 @@ function addPost() {
 }
 
 function deletePost(postId) {
-    var baseUrl = document.getElementById('api-base-url').value;
-
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
     fetch(baseUrl + '/posts/' + postId, {
         method: 'DELETE'
     })
@@ -79,7 +82,7 @@ function deletePost(postId) {
 }
 
 function editPost(postId, currentTitle, currentContent) {
-    var baseUrl = document.getElementById('api-base-url').value;
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
 
     document.getElementById('edit-title').value = currentTitle;
     document.getElementById('edit-content').value = currentContent;
@@ -94,7 +97,7 @@ function closeModal() {
 }
 
 function saveChanges() {
-    var baseUrl = document.getElementById('api-base-url').value;
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
     var postId = document.getElementById('edit-modal').dataset.postId;
     var newTitle = document.getElementById('edit-title').value;
     var newContent = document.getElementById('edit-content').value;
@@ -114,7 +117,7 @@ function saveChanges() {
 }
 
 function searchPosts() {
-    var baseUrl = document.getElementById('api-base-url').value;
+    var baseUrl = sanitizeBaseUrl(document.getElementById('api-base-url').value);
     var searchTitle = document.getElementById('search-title').value;
     var searchContent = document.getElementById('search-content').value;
 
